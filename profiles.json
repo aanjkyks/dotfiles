@@ -58,7 +58,7 @@
             "background" : "#1F2229",
 			"foreground" : "#E6E6E6",
 			
-            "black" : "#1F2229",
+            "black" : "#000000",
 			"brightBlack" : "#8C42AB",
 			
 			"red" : "#D41919",
@@ -84,7 +84,7 @@
         },
         {
             "background" : "#0C0C0C",
-            "black" : "#0C0C0C",
+            "black" : "#000000",
             "blue" : "#0037DA",
             "brightBlack" : "#767676",
             "brightBlue" : "#3B78FF",
