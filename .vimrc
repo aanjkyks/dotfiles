@@ -11,7 +11,7 @@ call plug#begin('~/.vim/plugged')
         Plug 'airblade/vim-gitgutter'
         Plug 'ycm-core/YouCompleteMe'
         Plug 'jiangmiao/auto-pairs'
-
+        Plug 'morhetz/gruvbox'
 call plug#end()
 
 set number
@@ -30,6 +30,8 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 set t_Co=256
-colorscheme minimalist
+colorscheme gruvbox
+
+set bg=dark
 
 set showcmd
