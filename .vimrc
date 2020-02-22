@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 set number
+set tabstop=4
 set expandtab
 syntax on
 
