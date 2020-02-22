@@ -10,6 +10,8 @@ git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/theme
 
 cp ~/.zshrc ~/.zshrc.bak
 echo "source ~/dotfiles/.zshrc" > ~/.zshrc
+cp ~/.vimrc ~/.vimrc.bak
+echo "source ~/dotfiles/.vimrc" > ~/.vimrc
 
 wget https://github.com/Peltoche/lsd/releases/download/0.16.0/lsd_0.16.0_amd64.deb
 sudo dpkg -i lsd_0.16.0_amd64.deb
