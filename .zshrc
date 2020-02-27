@@ -3,7 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/ainis/.oh-my-zsh"
-exec fortune | cowsay | lolcat
+exec fortune | cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
 
 # SH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ccc'

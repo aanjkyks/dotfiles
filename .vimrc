@@ -14,8 +14,9 @@ call plug#begin('~/.vim/plugged')
         Plug 'morhetz/gruvbox'
 call plug#end()
 
-set number
+set nocompatible
 set tabstop=4
+set number
 set expandtab
 syntax on
 
