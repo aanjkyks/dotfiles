@@ -3,11 +3,8 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/ainis/.oh-my-zsh"
-exec fortune | cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1) | lolcat
+exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
-
-# SH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#ccc'
-# ZLE_RPROMPT_INDENT=0
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -15,13 +12,7 @@ export TERM="xterm-256color"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
-# POWERLEVEL9K_MODE='nerdfont-complete'
-# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context time date newline dir dir_writable vcs)
-# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time)
-# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-# POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=".."
-# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 
 POWERLEVEL9K_MODE=nerdfont-complete
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
@@ -29,13 +20,12 @@ POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
 POWERLEVEL9K_FOLDER_ICON=
-#POWERLEVEL9K_TIME_BACKGROUND=black
-#POWERLEVEL9K_TIME_FOREGROUND=white
+POWERLEVEL9K_TIME_BACKGROUND=black
+POWERLEVEL9K_TIME_FOREGROUND=white
 POWERLEVEL9K_STATUS_VERBOSE=true
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_BACKGROUND=black
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=blue
 POWERLEVEL9K_STATUS_OK_IN_NON_VERBOSE=true
-#POWERLEVEL9K_STATUS_VERBOSE=false
 POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{blue}╰%f '
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭'
@@ -74,7 +64,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status background_job
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -117,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
