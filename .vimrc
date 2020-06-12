@@ -12,6 +12,8 @@ call plug#begin('~/.vim/plugged')
         Plug 'ycm-core/YouCompleteMe'
         Plug 'jiangmiao/auto-pairs'
         Plug 'morhetz/gruvbox'
+        Plug 'christoomey/vim-system-copy'
+        Plug 'tpope/vim-surround'
 call plug#end()
 
 set nocompatible

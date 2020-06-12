@@ -12,8 +12,8 @@ export TERM="xterm-256color"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_SHORTEN_DELIMITER=".."
 
+POWERLEVEL9K_SHORTEN_DELIMITER=".."
 POWERLEVEL9K_MODE=nerdfont-complete
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
@@ -90,7 +90,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions tmux zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found)
 
 source $ZSH/oh-my-zsh.sh
 
