@@ -3,7 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/ainis/.oh-my-zsh"
-exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
+# exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -107,7 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -132,3 +132,4 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
+alias vim='nvim'

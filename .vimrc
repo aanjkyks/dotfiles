@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
     	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         Plug 'dikiaap/minimalist'
         Plug 'airblade/vim-gitgutter'
-        Plug 'ycm-core/YouCompleteMe'
+"        Plug 'ycm-core/YouCompleteMe'
         Plug 'jiangmiao/auto-pairs'
         Plug 'morhetz/gruvbox'
         Plug 'christoomey/vim-system-copy'
