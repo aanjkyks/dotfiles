@@ -9,17 +9,19 @@ call plug#begin('~/.vim/plugged')
     	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         Plug 'dikiaap/minimalist'
         Plug 'airblade/vim-gitgutter'
-"        Plug 'ycm-core/YouCompleteMe'
+"       Plug 'ycm-core/YouCompleteMe'
         Plug 'jiangmiao/auto-pairs'
         Plug 'morhetz/gruvbox'
         Plug 'christoomey/vim-system-copy'
         Plug 'tpope/vim-surround'
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set nocompatible
 set tabstop=4
 set number
 set expandtab
+set mouse=a
 syntax on
 
 set hlsearch

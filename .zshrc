@@ -6,6 +6,8 @@ export ZSH="/home/ainis/.oh-my-zsh"
 # exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
 
+[ -f "/home/ainis/.ghcup/env" ] && source "/home/ainis/.ghcup/env" # ghcup-env
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -32,6 +34,9 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context root_indicator dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status background_jobs time)
 
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=false
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
@@ -90,7 +95,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found)
+plugins=(mvn git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found common-aliases archlinux autojump instantos tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -133,3 +138,31 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
 alias vim='nvim'
+
+# Functions
+
+
+extract () {
+    if [ ! -f "$1" ] ; then
+        echo "'$1' does not exist."
+        return 1
+    fi
+
+    case "$1" in
+        *.tar.bz2)   tar xvjf "$1"   ;;
+        *.tar.xz)    tar xvJf "$1"   ;;
+        *.tar.gz)    tar xvzf "$1"   ;;
+        *.bz2)       bunzip2 "$1"    ;;
+        *.rar)       rar x "$1"      ;;
+        *.gz)        gunzip "$1"     ;;
+        *.tar)       tar xvf "$1"    ;;
+        *.tbz2)      tar xvjf "$1"   ;;
+        *.tgz)       tar xvzf "$1"   ;;
+        *.zip)       unzip "$1"      ;;
+        *.Z)         uncompress "$1" ;;
+        *.xz)        xz -d "$1"      ;;
+        *.7z)        7z x "$1"       ;;
+        *.a)         ar x "$1"       ;;
+        *)           echo "Unable to extract '$1'." ;;
+    esac
+}
