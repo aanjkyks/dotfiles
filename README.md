@@ -18,4 +18,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 # remember about lsd
 ```
+## xmonad
+thanks, dt. [dt's dotfiles][dt_link]
 
+[dt_link]: https://gitlab.com/dwt1/dotfiles
