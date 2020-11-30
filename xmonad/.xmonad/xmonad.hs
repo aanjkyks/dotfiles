@@ -251,6 +251,7 @@ myManageHook = composeAll
      , className =? "TelegramDesktop"    --> doShift (last myWorkspaces)
      , className =? "Lutris"    --> doShift (last $ init myWorkspaces)
      , className =? "Steam" --> doShift (last $ init myWorkspaces)
+     , className =? "steam_proton" --> doShift(last $ init $ init myWorkspaces)
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      ] <+> namedScratchpadManageHook myScratchPads
 

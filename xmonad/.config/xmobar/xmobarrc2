@@ -29,6 +29,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     , Run Com "/home/ainis/.local/bin/pacupdate" [] "pacupdate" 36000
+                    , Run Com "/home/ainis/.config/scripts/gpu_temp" [] "gputemp" 20
+                    , Run Com "/home/ainis/.config/scripts/gpu_load" [] "gpuload" 20
                       -- Runs a standard shell command 'uname -r' to get kernel version
                     , Run Com "uname" ["-r"] "" 3600
                       -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
@@ -52,6 +54,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
        \<fc=#666666> <fn=2>|</fn></fc> \
        -- \<fc=#51afef> %disku% </fc>\
        -- \<fc=#666666> <fn=2>|</fn></fc> \
+       \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
+       \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#98be65> %enp0s25% </fc>\
        \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#c678dd><fn=1> </fn>  %pacupdate% </fc>\
