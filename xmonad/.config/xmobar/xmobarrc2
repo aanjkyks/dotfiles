@@ -54,8 +54,8 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
        \<fc=#666666> <fn=2>|</fn></fc> \
        -- \<fc=#51afef> %disku% </fc>\
        -- \<fc=#666666> <fn=2>|</fn></fc> \
-       \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
-       \<fc=#666666> <fn=2>|</fn></fc> \
+       -- \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
+       -- \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#98be65> %enp0s25% </fc>\
        \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#c678dd><fn=1> </fn>  %pacupdate% </fc>\

@@ -14,11 +14,11 @@ import XMonad.Actions.WindowGo (runOrRaise)
 import XMonad.Actions.WithAll (sinkAll, killAll)
 
     -- Data
-import Data.Monoid
+import Data.Monoid ( Endo )
 import Data.Maybe (isJust)
 
     -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
@@ -26,6 +26,7 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.UrgencyHook
 
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
@@ -249,10 +250,12 @@ myManageHook = composeAll
      , className =? "discord"     --> doShift (last myWorkspaces)
      , className =? "Mailspring"     --> doShift (last myWorkspaces)
      , className =? "TelegramDesktop"    --> doShift (last myWorkspaces)
+     , className =? "Slack" --> doShift (last myWorkspaces)
      , className =? "Lutris"    --> doShift (last $ init myWorkspaces)
      , className =? "Steam" --> doShift (last $ init myWorkspaces)
      , className =? "steam_proton" --> doShift(last $ init $ init myWorkspaces)
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+     , isFullscreen --> doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
 myLogHook :: X ()
@@ -358,7 +361,7 @@ main = do
     -- Launching three instances of xmobar on their monitors.
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc2"
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ ewmh def
+    xmonad $ withUrgencyHook NoUrgencyHook $ ewmh def
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
         -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
@@ -383,7 +386,8 @@ main = do
                         , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
                         , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
+                        , ppTitle = xmobarColor "#b3afc2" "" 
+                        -- . shorten 60     -- Title of active window in xmobar
                         , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"          -- Separators in xmobar
                         , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
