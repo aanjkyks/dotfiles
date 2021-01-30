@@ -35,9 +35,8 @@
 *color7: #CCCCCC
 *color15: #FFFFFF
 
-URxvt.font: xft:Fira Code Nerd Font:size=13
-st.font: Hack Nerd Font:size=11
+URxvt.font: xft:Fira Code Nerd Font Mono:size=13
 ! instantos-general
 URxvt.scrollBar: false
 URxvt.perl-ext-common: resize-font
-Xcursor.theme: Breeze
+\nXcursor.theme: elementary-instantos

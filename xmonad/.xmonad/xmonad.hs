@@ -215,8 +215,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeRow
 
 myWorkspaces = myClickableWorkspaces
--- myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " games ", " games ", " social "]
--- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
+-- myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -226,7 +225,6 @@ xmobarEscape = concatMap doubleLts
 
 myClickableWorkspaces :: [String]
 myClickableWorkspaces = clickable . map xmobarEscape
-               -- $ [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
                $ [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
   where
         clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
