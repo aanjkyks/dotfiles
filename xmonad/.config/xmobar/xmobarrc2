@@ -14,7 +14,7 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , iconRoot = "/home/ainis/.xmonad/xpm/"  -- default: "."
+       , iconRoot = "/home/vagrant/.xmonad/xpm/"  -- default: "."
        , commands = [
                     -- Time and date
                       Run Date "<fn=1>\xf133 </fn> %a %b %d %Y - %H:%M " "date" 50
@@ -28,13 +28,13 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                       -- , Run DiskU [("/", "<fn=1>\xf0c7 </fn>  hdd: <free> free")] [] 60
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
-                    , Run Com "/home/ainis/.local/bin/pacupdate" [] "pacupdate" 36000
-                    , Run Com "/home/ainis/.config/scripts/gpu_temp" [] "gputemp" 20
-                    , Run Com "/home/ainis/.config/scripts/gpu_load" [] "gpuload" 20
+                    , Run Com "/home/vagrant/.local/bin/pacupdate" [] "pacupdate" 36000
+                    , Run Com "/home/vagrant/.config/scripts/gpu_temp" [] "gputemp" 20
+                    , Run Com "/home/vagrant/.config/scripts/gpu_load" [] "gpuload" 20
                       -- Runs a standard shell command 'uname -r' to get kernel version
                     , Run Com "uname" ["-r"] "" 3600
                       -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
-                    , Run Com "/home/ainis/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
+                    , Run Com "/home/vagrant/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 50
                       -- Prints out the left side items such as workspaces, layout, etc.
                       -- The workspaces are 'clickable' in my configs.
                     , Run UnsafeStdinReader
@@ -54,12 +54,12 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
        \<fc=#666666> <fn=2>|</fn></fc> \
        -- \<fc=#51afef> %disku% </fc>\
        -- \<fc=#666666> <fn=2>|</fn></fc> \
-       -- \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
-       -- \<fc=#666666> <fn=2>|</fn></fc> \
-       \<fc=#98be65> %enp0s25% </fc>\
-       \<fc=#666666> <fn=2>|</fn></fc> \
-       \<fc=#c678dd><fn=1> </fn>  %pacupdate% </fc>\
-       \<fc=#666666> <fn=2>|</fn></fc> \
+       --\<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
+       --\<fc=#666666> <fn=2>|</fn></fc> \
+       --\<fc=#98be65> %enp0s25% </fc>\
+       --\<fc=#666666> <fn=2>|</fn></fc> \
+       --\<fc=#c678dd><fn=1> </fn>  %pacupdate% </fc>\
+       --\<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#46d9ff> %date% </fc>\
        \<fc=#666666><fn=2>|</fn></fc> \
        \%kbd% \

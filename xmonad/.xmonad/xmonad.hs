@@ -68,7 +68,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
 
 myTerminal :: String
-myTerminal = "alacritty"   -- Sets default terminal
+myTerminal = "gnome-terminal"   -- Sets default terminal
 
 myBrowser :: String
 myBrowser = "firefox "               -- Sets qutebrowser as browser for tree select
@@ -95,7 +95,7 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "/home/ainis/.config/my-autostart.sh"
+          spawnOnce "/home/vagrant/.config/my-autostart.sh"
           setWMName "LG3D"
 
 myScratchPads :: [NamedScratchpad]
@@ -244,16 +244,15 @@ myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
      -- I'm doing it this way because otherwise I would have to write out the full
      -- name of my workspaces, and the names would very long if using clickable workspaces.
-     [ className =? "firefox"     --> doShift (head myWorkspaces)
-     , className =? "discord"     --> doShift (last myWorkspaces)
-     , className =? "Mailspring"     --> doShift (last myWorkspaces)
-     , className =? "TelegramDesktop"    --> doShift (last myWorkspaces)
-     , className =? "Slack" --> doShift (last myWorkspaces)
-     , className =? "Lutris"    --> doShift (last $ init myWorkspaces)
-     , className =? "Steam" --> doShift (last $ init myWorkspaces)
-     , className =? "steam_proton" --> doShift(last $ init $ init myWorkspaces)
-     , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
-     , isFullscreen --> doFullFloat
+     --[ className =? "firefox"     --> doShift (head myWorkspaces)
+     --, className =? "discord"     --> doShift (last myWorkspaces)
+     --, className =? "Mailspring"     --> doShift (last myWorkspaces)
+     --, className =? "TelegramDesktop"    --> doShift (last myWorkspaces)
+     --, className =? "Lutris"    --> doShift (last $ init myWorkspaces)
+     --, className =? "Steam" --> doShift (last $ init myWorkspaces)
+     --, className =? "steam_proton" --> doShift(last $ init $ init myWorkspaces)
+     --, (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
+    [resource =? "Dialog" --> doFloat
      ] <+> namedScratchpadManageHook myScratchPads
 
 myLogHook :: X ()
@@ -268,7 +267,7 @@ myKeys =
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
 
     -- Run Prompt
-        , ("M-y", spawn "appmenu")
+        , ("M-y", spawn "rofi show-drun")
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn myTerminal)

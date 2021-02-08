@@ -2,11 +2,11 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ainis/.oh-my-zsh"
+export ZSH="/home/vagrant/.oh-my-zsh"
 # exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
 
-[ -f "/home/ainis/.ghcup/env" ] && source "/home/ainis/.ghcup/env" # ghcup-env
+[ -f "/home/vagrant/.ghcup/env" ] && source "/home/vagrant/.ghcup/env" # ghcup-env
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
-export EDITOR='nvim'
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
