@@ -39,4 +39,4 @@ URxvt.font: xft:Fira Code Nerd Font Mono:size=13
 ! instantos-general
 URxvt.scrollBar: false
 URxvt.perl-ext-common: resize-font
-\nXcursor.theme: elementary-instantos
+Xcursor*theme: Adwaita

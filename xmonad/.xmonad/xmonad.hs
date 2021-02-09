@@ -56,6 +56,7 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 import XMonad.Prompt
 
    -- Utilities
+import XMonad.Util.Cursor
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
@@ -97,6 +98,7 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "/home/vagrant/.config/my-autostart.sh"
           setWMName "LG3D"
+          setDefaultCursor xC_left_ptr
 
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
@@ -267,7 +269,7 @@ myKeys =
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
 
     -- Run Prompt
-        , ("M-y", spawn "rofi show-drun")
+        , ("M-y", spawn "rofi -show drun")
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn myTerminal)
