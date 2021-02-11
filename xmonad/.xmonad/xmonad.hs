@@ -7,6 +7,7 @@ import qualified XMonad.StackSet as W
     -- Actions
 import XMonad.Actions.CopyWindow 
 import XMonad.Actions.CycleWS (moveTo, shiftTo, WSType(..))
+import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
@@ -15,6 +16,7 @@ import XMonad.Actions.WithAll (sinkAll, killAll)
 
     -- Data
 import Data.Monoid ( Endo )
+import qualified Data.Map as M
 import Data.Maybe (isJust)
 
     -- Hooks
@@ -227,11 +229,12 @@ xmobarEscape = concatMap doubleLts
 
 myClickableWorkspaces :: [String]
 myClickableWorkspaces = clickable . map xmobarEscape
-               $ [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
+               $ map (\n -> " "  ++ show n ++ " ") wss
   where
         clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..9] l,
+                      (i,ws) <- zip [1..length wss] l,
                       let n = i ]
+        wss = [1..9]
 
 xmobarAction :: String -> String -> String
 xmobarAction action = wrap t "</action>"
@@ -261,8 +264,8 @@ myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 0.9
 
-myKeys :: [(String, X ())]
-myKeys =
+-- myKeys :: [(String, X ())]
+myKeys conf =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
@@ -285,6 +288,9 @@ myKeys =
         , ("M-S-<L>", shiftTo Prev nonNSP) -- Shifts focused window to prev ws
         , ("M-<R>", moveTo Next nonNSP) -- 
         , ("M-<L>", moveTo Prev nonNSP)
+        , ("M-r", renameWorkspace conf)
+        , ("M-=", appendWorkspacePrompt conf)
+        , ("M--", removeWorkspace)
 
     -- Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -323,8 +329,8 @@ myKeys =
         , ("M-C-<Down>", decreaseLimit)                 -- Decrease number of windows
 
     -- Window resizing
-        , ("M-h", sendMessage Shrink)                   -- Shrink horiz window width
-        , ("M-l", sendMessage Expand)                   -- Expand horiz window width
+        , ("M-M1-h", sendMessage Shrink)                   -- Shrink horiz window width
+        , ("M-M1-l", sendMessage Expand)                   -- Expand horiz window width
         , ("M-M1-j", sendMessage MirrorShrink)          -- Shrink vert window width
         , ("M-M1-k", sendMessage MirrorExpand)          -- Exoand vert window width
 
@@ -392,4 +398,5 @@ main = do
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws, layoutAction l]++ex++[t]
                         }
-        } `additionalKeysP` myKeys
+        } `additionalKeysP` (myKeys def)
+

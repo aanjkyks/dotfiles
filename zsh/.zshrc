@@ -34,9 +34,9 @@ POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{blue}╭'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context root_indicator dir dir_writable vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status background_jobs time)
 
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOCONNECT=false
+# ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOCONNECT=false
 
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -135,6 +135,7 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
 alias vim='vim'
+alias dstop='docker ps | awk '{ print $1 }' | xargs docker stop'
 
 # Functions
 
