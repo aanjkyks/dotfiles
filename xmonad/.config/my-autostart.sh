@@ -1,8 +1,9 @@
 #! /bin/sh
 
 lxpolkit &
+instantwallpaper random & 
 setxkbmap -layout lv,ru -option grp:alt_shift_toggle &
-nitrogen --restore &
+# nitrogen --restore &
 picom --experimental-backend &
 nm-applet &
 volumeicon &
