@@ -3,9 +3,9 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true,\
+                   \Noto Emoji:pixelsize=13,\
                    \Noto Sans CJK KR:weight=bold:pixelsize=13:antialias=true:hinting=true,\
                    \Noto Sans CJK JP:weight=bold:pixelsize=13:antialias=true:hinting=true,\
-                   \Noto Emoji:pixelsize=13,\
                    \Noto:weight=bold:pixelsize=13:antialias=true:hinting=true"
 
         , additionalFonts = ["xft:Mononoki Nerd Font:pixelsize=13:antialias=true:hinting=true"
