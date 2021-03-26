@@ -2,10 +2,14 @@
 -- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR --flags="all_extensions"
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
-Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true"
-       , additionalFonts = [ "xft:Mononoki Nerd Font:pixelsize=13:antialias=true:hinting=true"
+Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true,\
+                   \Noto Sans CJK KR:weight=bold:pixelsize=13:antialias=true:hinting=true,\
+                   \Noto Sans CJK JP:weight=bold:pixelsize=13:antialias=true:hinting=true,\
+                   \Noto Emoji:pixelsize=13,\
+                   \Noto:weight=bold:pixelsize=13:antialias=true:hinting=true"
+
+        , additionalFonts = ["xft:Mononoki Nerd Font:pixelsize=13:antialias=true:hinting=true"
                            , "xft:Mononoki Nerd Font:pixelsize=18:antialias=true:hinting=true"
-                           , "xft:FontAwesome:pixelsize=15"
                            ]
        , bgColor = "#282c34"
        , fgColor = "#ff6c6b"
@@ -29,8 +33,9 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                       -- Runs custom script to check for pacman updates.
                       -- This script is in my dotfiles repo in .local/bin.
                     , Run Com "/home/ainis/.local/bin/pacupdate" [] "pacupdate" 36000
-                    , Run Com "/home/ainis/.config/scripts/gpu_temp" [] "gputemp" 20
-                    , Run Com "/home/ainis/.config/scripts/gpu_load" [] "gpuload" 20
+                    , Run Com "/home/ainis/.config/scripts/gpu_temp.sh" [] "gputemp" 20
+                    , Run Com "/home/ainis/.config/scripts/gpu_load.sh" [] "gpuload" 20
+                    , Run Com "/home/ainis/.config/scripts/weather.sh" [] "wttr" 36000
                       -- Runs a standard shell command 'uname -r' to get kernel version
                     , Run Com "uname" ["-r"] "" 3600
                       -- Script that dynamically adjusts xmobar padding depending on number of trayer icons.
@@ -54,11 +59,13 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
        \<fc=#666666> <fn=2>|</fn></fc> \
        -- \<fc=#51afef> %disku% </fc>\
        -- \<fc=#666666> <fn=2>|</fn></fc> \
-       -- \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
-       -- \<fc=#666666> <fn=2>|</fn></fc> \
+       \<fc=#51afef><fn=1> </fn> GPU load: %gpuload% temp: %gputemp% </fc> \
+       \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#98be65> %enp0s25% </fc>\
        \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#c678dd><fn=1> </fn>  %pacupdate% </fc>\
+       \<fc=#666666> <fn=2>|</fn></fc> \
+       \<fc=#dc7633> %wttr% </fc> \
        \<fc=#666666> <fn=2>|</fn></fc> \
        \<fc=#46d9ff> %date% </fc>\
        \<fc=#666666><fn=2>|</fn></fc> \

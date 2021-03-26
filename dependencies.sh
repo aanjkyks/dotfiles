@@ -16,7 +16,7 @@ sudo pacman -S git base-devel
 git clone https://aur.archlinux.org/paru.git ~/.srcs/paru
 cd ~/.srcs/paru/ && makepkg -si
 
-paru -S picom-jonaburg-git
+paru -S picom-jonaburg-git libxft-bgra
 
 paru -S vim xmonad xmonad-contrib xmobar lsd bashtop alacritty zsh stow tmux 
 
