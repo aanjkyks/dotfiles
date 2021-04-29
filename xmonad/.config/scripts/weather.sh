@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl "wttr.in/?format=3"
+curl "wttr.in/?format=2"

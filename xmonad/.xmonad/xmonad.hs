@@ -15,7 +15,8 @@ import XMonad.Actions.WithAll (sinkAll, killAll)
 
     -- Data
 import Data.Monoid ( Endo )
-import Data.Maybe (isJust)
+import Data.Maybe 
+import qualified Data.Map as M
 
     -- Hooks
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, PP(..))
@@ -30,6 +31,7 @@ import XMonad.Hooks.UrgencyHook
 
     -- Layouts
 import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.PerScreen
 import XMonad.Layout.SimplestFloat
 import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
@@ -44,6 +46,7 @@ import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
+import XMonad.Layout.ShowWName
 import XMonad.Layout.Simplest
 import XMonad.Layout.Spacing
 import XMonad.Layout.SubLayouts
@@ -129,13 +132,25 @@ mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spac
 mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
 
 -- Defining a bunch of layouts, many that I don't use.
+
+myResizableTall = ResizableTall 1 (3/100) (1/2) []  
+
 tall     = renamed [Replace "tall"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] Simplest
            $ limitWindows 12
            $ mySpacing 8
-           $ ResizableTall 1 (3/100) (1/2) []
+           $ myResizableTall
+
+mTall    = renamed [Replace "mirror tall"]
+           $ windowNavigation
+           $ addTabs shrinkText myTabTheme
+           $ subLayout [] Simplest
+           $ limitWindows 12
+           $ mySpacing 8
+           $ Mirror myResizableTall
+
 magnify  = renamed [Replace "magnify"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
@@ -143,7 +158,7 @@ magnify  = renamed [Replace "magnify"]
            $ magnifier
            $ limitWindows 12
            $ mySpacing 8
-           $ ResizableTall 1 (3/100) (1/2) []
+           $ myResizableTall
 monocle  = renamed [Replace "monocle"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
@@ -199,12 +214,21 @@ myTabTheme = def { fontName            = myFont
                  , inactiveTextColor   = "#d0d0d0"
                  }
 
+myShowWNameTheme :: SWNConfig 
+myShowWNameTheme = def     
+        { swn_font              = "xft:Ubuntu:bold:size=60"     
+        , swn_fade              = 1.0     
+        , swn_bgcolor           = "#1c1f24"     
+        , swn_color             = "#ffffff"    
+        }
+
 -- The layout hook
+
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats
                $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) myDefaultLayout
              where
                -- I've commented out the layouts I don't use.
-               myDefaultLayout =     tall
+               myDefaultLayout =     ifWider 10 tall mTall
                                  ||| magnify
                                  ||| noBorders monocle
                                  ||| floats
@@ -214,8 +238,8 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeCol
                                  ||| threeRow
 
-myWorkspaces = myClickableWorkspaces
--- myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
+myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
+myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..]
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -223,13 +247,8 @@ xmobarEscape = concatMap doubleLts
         doubleLts '<' = "<<"
         doubleLts x   = [x]
 
-myClickableWorkspaces :: [String]
-myClickableWorkspaces = clickable . map xmobarEscape
-               $ [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
-  where
-        clickable l = [ "<action=xdotool key super+" ++ show n ++ ">" ++ ws ++ "</action>" |
-                      (i,ws) <- zip [1..9] l,
-                      let n = i ]
+clickable ws  = xmobarAction ("xdotool key super+" ++ show i ++ ">") ws
+  where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 xmobarAction :: String -> String -> String
 xmobarAction action = wrap t "</action>"
@@ -251,7 +270,6 @@ myManageHook = composeAll
      , className =? "Slack" --> doShift (last myWorkspaces)
      , className =? "Lutris"    --> doShift (last $ init myWorkspaces)
      , className =? "Steam" --> doShift (last $ init myWorkspaces)
-     , className =? "steam_proton" --> doShift(last $ init $ init myWorkspaces)
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen --> doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
@@ -373,22 +391,22 @@ main = do
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
-        , layoutHook         = myLayoutHook
+        , layoutHook         = showWName' myShowWNameTheme $ myLayoutHook
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
         , logHook = workspaceHistoryHook <+> myLogHook <+> dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc0  
-                        , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#98be65" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
+                        , ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]"               -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#98be65" "" . clickable                  -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable     -- Hidden workspaces in xmobar
+                        , ppHiddenNoWindows = xmobarColor "#c792ea" "" . clickable          -- Hidden workspaces (no windows)
                         , ppTitle = xmobarColor "#b3afc2" "" 
                         -- . shorten 60     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"          -- Separators in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
+                        , ppSep =  "<fc=#666666> <fn=2>|</fn> </fc>"                        -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" ""                               -- Urgent workspace
+                        , ppExtras  = [windowCount]                                         -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws, layoutAction l]++ex++[t]
                         }
         } `additionalKeysP` myKeys
