@@ -1,4 +1,4 @@
--- [[file:../README.org::*Imports][Imports:1]]
+-- [[file:README.org::*Imports][Imports:1]]
   -- Base
 import XMonad
 import System.IO
@@ -66,7 +66,7 @@ import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
 -- Imports:1 ends here
 
--- [[file:../README.org::*Variable definitions][Variable definitions:1]]
+-- [[file:README.org::*Variable definitions][Variable definitions:1]]
 myFont :: String
 myFont = "xft:Mononoki Nerd Font:bold:size=9:antialias=true:hinting=true"
 
@@ -100,14 +100,14 @@ windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 -- Variable definitions:1 ends here
 
--- [[file:../README.org::*Startup hook][Startup hook:1]]
+-- [[file:README.org::*Startup hook][Startup hook:1]]
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "/home/ainis/.config/my-autostart.sh"
           setWMName "LG3D"
 -- Startup hook:1 ends here
 
--- [[file:../README.org::*Scratch pads][Scratch pads:1]]
+-- [[file:README.org::*Scratch pads][Scratch pads:1]]
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
@@ -131,7 +131,7 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  l = 0.95 -w
 -- Scratch pads:1 ends here
 
--- [[file:../README.org::*Window layouts][Window layouts:1]]
+-- [[file:README.org::*Window layouts][Window layouts:1]]
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
@@ -249,7 +249,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| threeRow
 -- Window layouts:1 ends here
 
--- [[file:../README.org::*Workspaces][Workspaces:1]]
+-- [[file:README.org::*Workspaces][Workspaces:1]]
 myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
 myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..]
 
@@ -271,7 +271,7 @@ layoutAction = xmobarAction action
         where action = "xdotool key super+Tab"
 -- Workspaces:1 ends here
 
--- [[file:../README.org::*Manage hook][Manage hook:1]]
+-- [[file:README.org::*Manage hook][Manage hook:1]]
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
@@ -289,20 +289,22 @@ myManageHook = composeAll
      ] <+> namedScratchpadManageHook myScratchPads
 -- Manage hook:1 ends here
 
--- [[file:../README.org::*Window transparency][Window transparency:1]]
+-- [[file:README.org::*Window transparency][Window transparency:1]]
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 0.9
 -- Window transparency:1 ends here
 
--- [[file:../README.org::*Keybinds][Keybinds:1]]
+-- [[file:README.org::*XMonad][XMonad:1]]
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
+-- XMonad:1 ends here
 
+-- [[file:README.org::*Run/kill windows][Run/kill windows:1]]
     -- Run Prompt
         , ("M-y", spawn "appmenu")              -- appmenu is unique to instantOS. use `rofi -show drun` elsewhere
 
@@ -312,14 +314,16 @@ myKeys =
     -- Kill windows
         , ("M-q", kill1)                         -- Kill the currently focused client
         , ("M-S-a", killAll)                       -- Kill all windows on current workspace
+-- Run/kill windows:1 ends here
 
+-- [[file:README.org::*Workspace management][Workspace management:1]]
     -- Workspaces
-        , ("M-M1-<R>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-M1-<L>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
-        , ("M-S-<R>", shiftTo Next nonNSP) -- Shifts focused window to next ws
-        , ("M-S-<L>", shiftTo Prev nonNSP) -- Shifts focused window to prev ws
-        , ("M-<R>", moveTo Next nonNSP) --
-        , ("M-<L>", moveTo Prev nonNSP)
+        , ("M-M1-<R>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws and moves focus to it
+        , ("M-M1-<L>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)       -- Shifts focused window to prev ws and moves focus to it
+        , ("M-S-<R>", shiftTo Next nonNSP)                              -- Shifts focused window to next ws
+        , ("M-S-<L>", shiftTo Prev nonNSP)                              -- Shifts focused window to prev ws
+        , ("M-<R>", moveTo Next nonNSP)                                 -- Moves to next ws
+        , ("M-<L>", moveTo Prev nonNSP)                                 -- moves to prev ws
 
     -- Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -331,7 +335,9 @@ myKeys =
         , ("M-i", incWindowSpacing 4)           -- Increase window spacing
         , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
         , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
+-- Workspace management:1 ends here
 
+-- [[file:README.org::*Window navigation][Window navigation:1]]
     -- Windows navigation
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
         , ("M-j", windows W.focusDown)    -- Move focus to the next window
@@ -342,7 +348,9 @@ myKeys =
         , ("M-S-<Return>", promote)      -- Moves focused window to master, others maintain order
         , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
+-- Window navigation:1 ends here
 
+-- [[file:README.org::*Layout management][Layout management:1]]
     -- Layouts
         , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
         , ("M-C-M1-<Up>", sendMessage Arrange)
@@ -374,24 +382,28 @@ myKeys =
         , ("M-C-/", withFocused (sendMessage . UnMergeAll))
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
+-- Layout management:1 ends here
 
-    -- Scratchpads
-        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
-
+-- [[file:README.org::*Multimedia keys][Multimedia keys:1]]
     -- Multimedia Keys
         , ("<XF86AudioMute>",   spawn "amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
         , ("<XF86AudioLowerVolume>", spawn "amixer set Master 5%- unmute")
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
         , ("<Print>", spawn "flameshot gui")
+-- Multimedia keys:1 ends here
+
+-- [[file:README.org::*Scratchpads][Scratchpads:1]]
+    -- Scratchpads
+        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
         ]
 
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
--- Keybinds:1 ends here
+-- Scratchpads:1 ends here
 
--- [[file:../README.org::*Launch][Launch:1]]
+-- [[file:README.org::*Launch][Launch:1]]
 main :: IO ()
 main = do
     -- Launching xmobar

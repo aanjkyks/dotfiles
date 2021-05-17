@@ -16,6 +16,13 @@
 - [[#manage-hook][Manage hook]]
 - [[#window-transparency][Window transparency]]
 - [[#keybinds][Keybinds]]
+  - [[#xmonad][XMonad]]
+  - [[#runkill-windows][Run/kill windows]]
+  - [[#workspace-management][Workspace management]]
+  - [[#window-navigation][Window navigation]]
+  - [[#layout-management][Layout management]]
+  - [[#multimedia-keys][Multimedia keys]]
+  - [[#scratchpads][Scratchpads]]
 - [[#launch][Launch]]
 
 * About
@@ -338,6 +345,8 @@ myLogHook = fadeInactiveLogHook fadeAmount
 #+end_src
 * Keybinds
 What was the key to increase/decrease window spacing? Right!
+** XMonad
+Restart, recompile, etc.
 #+begin_src haskell
 myKeys :: [(String, X ())]
 myKeys =
@@ -345,6 +354,9 @@ myKeys =
         [ ("M-C-r", spawn "xmonad --recompile") -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")   -- Restarts xmonad
         , ("M-S-q", io exitSuccess)             -- Quits xmonad
+#+end_src
+** Run/kill windows
+#+begin_src haskell
 
     -- Run Prompt
         , ("M-y", spawn "appmenu")              -- appmenu is unique to instantOS. use `rofi -show drun` elsewhere
@@ -356,13 +368,17 @@ myKeys =
         , ("M-q", kill1)                         -- Kill the currently focused client
         , ("M-S-a", killAll)                       -- Kill all windows on current workspace
 
+#+end_src
+** Workspace management
+#+begin_src haskell
+
     -- Workspaces
-        , ("M-M1-<R>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws
-        , ("M-M1-<L>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)  -- Shifts focused window to prev ws
-        , ("M-S-<R>", shiftTo Next nonNSP) -- Shifts focused window to next ws
-        , ("M-S-<L>", shiftTo Prev nonNSP) -- Shifts focused window to prev ws
-        , ("M-<R>", moveTo Next nonNSP) --
-        , ("M-<L>", moveTo Prev nonNSP)
+        , ("M-M1-<R>", shiftTo Next nonNSP >> moveTo Next nonNSP)       -- Shifts focused window to next ws and moves focus to it
+        , ("M-M1-<L>", shiftTo Prev nonNSP >> moveTo Prev nonNSP)       -- Shifts focused window to prev ws and moves focus to it
+        , ("M-S-<R>", shiftTo Next nonNSP)                              -- Shifts focused window to next ws
+        , ("M-S-<L>", shiftTo Prev nonNSP)                              -- Shifts focused window to prev ws
+        , ("M-<R>", moveTo Next nonNSP)                                 -- Moves to next ws
+        , ("M-<L>", moveTo Prev nonNSP)                                 -- moves to prev ws
 
     -- Floating windows
         , ("M-f", sendMessage (T.Toggle "floats")) -- Toggles my 'floats' layout
@@ -374,6 +390,9 @@ myKeys =
         , ("M-i", incWindowSpacing 4)           -- Increase window spacing
         , ("M-S-d", decScreenSpacing 4)         -- Decrease screen spacing
         , ("M-S-i", incScreenSpacing 4)         -- Increase screen spacing
+#+end_src
+** Window navigation
+#+begin_src haskell
 
     -- Windows navigation
         , ("M-m", windows W.focusMaster)  -- Move focus to the master window
@@ -385,6 +404,10 @@ myKeys =
         , ("M-S-<Return>", promote)      -- Moves focused window to master, others maintain order
         , ("M-S-<Tab>", rotSlavesDown)    -- Rotate all windows except master and keep focus in place
         , ("M-C-<Tab>", rotAllDown)       -- Rotate all the windows in the current stack
+#+end_src
+** Layout management
+#+begin_src haskell
+
 
     -- Layouts
         , ("M-<Tab>", sendMessage NextLayout)           -- Switch to next layout
@@ -418,8 +441,10 @@ myKeys =
         , ("M-C-.", onGroup W.focusUp')    -- Switch focus to next tab
         , ("M-C-,", onGroup W.focusDown')  -- Switch focus to prev tab
 
-    -- Scratchpads
-        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
+#+end_src
+
+** Multimedia keys
+#+begin_src haskell
 
     -- Multimedia Keys
         , ("<XF86AudioMute>",   spawn "amixer set Master toggle")  -- Bug prevents it from toggling correctly in 12.04.
@@ -427,6 +452,14 @@ myKeys =
         , ("<XF86AudioRaiseVolume>", spawn "amixer set Master 5%+ unmute")
         , ("<XF86Calculator>", runOrRaise "gcalctool" (resource =? "gcalctool"))
         , ("<Print>", spawn "flameshot gui")
+
+#+end_src
+** Scratchpads
+Still not used
+#+begin_src haskell
+
+    -- Scratchpads
+        , ("M-C-<Return>", namedScratchpadAction myScratchPads "terminal")
         ]
 
     -- The following lines are needed for named scratchpads.
