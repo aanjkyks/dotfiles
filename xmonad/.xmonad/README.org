@@ -1,5 +1,5 @@
 #+TITLE: XMonad Config
-#+PROPERTY: header-args :tangle ./.xmonad/xmonad.hs :comments yes :results silent
+#+PROPERTY: header-args :tangle ./xmonad.hs :comments yes :results silent
 
 # Local Variables:
 # eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
