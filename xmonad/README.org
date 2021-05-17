@@ -16,7 +16,7 @@
 - [[#local-variables][Local variables]]
 
 * About
-This is my XMonad config. Based on [[http://gitlab.com/dwt][DT's config]].
+This is my XMonad config. Based on [[http://gitlab.com/dwt1][DT's config]].
 * Imports
 Various imports required for the stuff to work
 #+begin_src haskell
