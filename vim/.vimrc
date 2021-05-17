@@ -5,8 +5,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-    	Plug 'junegunn/vim-easy-align'
-    	Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+        Plug 'junegunn/vim-easy-align'
+        Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
         Plug 'dikiaap/minimalist'
         Plug 'airblade/vim-gitgutter'
 "       Plug 'ycm-core/YouCompleteMe'

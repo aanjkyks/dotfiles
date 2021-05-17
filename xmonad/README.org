@@ -1,4 +1,26 @@
--- [[file:../README.org::*Imports][Imports:1]]
+#+TITLE: XMonad Config
+#+PROPERTY: header-args :tangle ./.xmonad/xmonad.hs :comments yes :results silent
+
+* Contents :toc:
+- [[#about][About]]
+- [[#imports][Imports]]
+- [[#variable-definitions][Variable definitions]]
+- [[#startup-hook][Startup hook]]
+- [[#scratch-pads][Scratch pads]]
+- [[#window-layouts][Window layouts]]
+- [[#workspaces][Workspaces]]
+- [[#manage-hook][Manage hook]]
+- [[#window-transparency][Window transparency]]
+- [[#keybinds][Keybinds]]
+- [[#launch][Launch]]
+- [[#local-variables][Local variables]]
+
+* About
+This is my XMonad config. Based on [[http://gitlab.com/dwt][DT's config]].
+* Imports
+Various imports required for the stuff to work
+#+begin_src haskell
+
   -- Base
 import XMonad
 import System.IO
@@ -64,9 +86,11 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
--- Imports:1 ends here
 
--- [[file:../README.org::*Variable definitions][Variable definitions:1]]
+#+end_src
+* Variable definitions
+Various variable definitions such as font, browser, terminal emulator, etc.
+#+begin_src haskell
 myFont :: String
 myFont = "xft:Mononoki Nerd Font:bold:size=9:antialias=true:hinting=true"
 
@@ -98,16 +122,23 @@ altMask = mod1Mask         -- Setting this for use in xprompts
 
 windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
--- Variable definitions:1 ends here
 
--- [[file:../README.org::*Startup hook][Startup hook:1]]
+#+end_src
+
+* Startup hook
+Calls following autostart script on XMonad startup
+#+begin_src haskell
+
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "/home/ainis/.config/my-autostart.sh"
           setWMName "LG3D"
--- Startup hook:1 ends here
+#+end_src
+* Scratch pads
+I don't use them, probably shoud clean this up at some point
+#+begin_src haskell
 
--- [[file:../README.org::*Scratch pads][Scratch pads:1]]
+
 myScratchPads :: [NamedScratchpad]
 myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                 , NS "mocp" spawnMocp findMocp manageMocp
@@ -129,9 +160,11 @@ myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
                  w = 0.9
                  t = 0.95 -h
                  l = 0.95 -w
--- Scratch pads:1 ends here
+#+end_src
 
--- [[file:../README.org::*Window layouts][Window layouts:1]]
+* Window layouts
+Stuff for window layouts inside XMonad: defines spacing between windows and layouts themselves.
+#+begin_src haskell
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
@@ -247,9 +280,10 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| spirals
                                  ||| threeCol
                                  ||| threeRow
--- Window layouts:1 ends here
-
--- [[file:../README.org::*Workspaces][Workspaces:1]]
+#+end_src
+* Workspaces
+Workspace related stuff: names, clickability via XMobar + =xdotool=
+#+begin_src haskell
 myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]
 myWorkspaceIndices = M.fromList $ zip myWorkspaces [1..]
 
@@ -269,9 +303,12 @@ xmobarAction action = wrap t "</action>"
 layoutAction :: String -> String
 layoutAction = xmobarAction action
         where action = "xdotool key super+Tab"
--- Workspaces:1 ends here
 
--- [[file:../README.org::*Manage hook][Manage hook:1]]
+#+end_src
+
+* Manage hook
+This defines window behavior by program
+#+begin_src haskell
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
      -- using 'doShift ( myWorkspaces !! 7)' sends program to workspace 8!
@@ -287,15 +324,18 @@ myManageHook = composeAll
      , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
      , isFullscreen --> doFullFloat
      ] <+> namedScratchpadManageHook myScratchPads
--- Manage hook:1 ends here
 
--- [[file:../README.org::*Window transparency][Window transparency:1]]
+#+end_src
+* Window transparency
+Requests inactive windows to get rendered with 90% opacity
+#+begin_src haskell
 myLogHook :: X ()
 myLogHook = fadeInactiveLogHook fadeAmount
     where fadeAmount = 0.9
--- Window transparency:1 ends here
-
--- [[file:../README.org::*Keybinds][Keybinds:1]]
+#+end_src
+* Keybinds
+What was the key to increase/decrease window spacing? Right!
+#+begin_src haskell
 myKeys :: [(String, X ())]
 myKeys =
     -- Xmonad
@@ -389,9 +429,10 @@ myKeys =
     -- The following lines are needed for named scratchpads.
           where nonNSP          = WSIs (return (\ws -> W.tag ws /= "nsp"))
                 nonEmptyNonNSP  = WSIs (return (\ws -> isJust (W.stack ws) && W.tag ws /= "nsp"))
--- Keybinds:1 ends here
-
--- [[file:../README.org::*Launch][Launch:1]]
+#+end_src
+* Launch
+This puts all the config together and launches XMonad + XMobar when =xmonad= gets called
+#+begin_src haskell
 main :: IO ()
 main = do
     -- Launching xmobar
@@ -430,4 +471,9 @@ main = do
                         , ppOrder  = \(ws:l:t:ex) -> [ws, layoutAction l]++ex++[t]          -- Ordering in xmobar: workspaces | layout | extras (window count) | window title
                         }
         } `additionalKeysP` myKeys
--- Launch:1 ends here
+#+end_src
+
+* Local variables
+# Local Variables:
+# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+# End:
