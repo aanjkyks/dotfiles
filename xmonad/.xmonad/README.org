@@ -1,9 +1,6 @@
 #+TITLE: XMonad Config
 #+PROPERTY: header-args :tangle ./xmonad.hs :comments yes :results silent
 
-# Local Variables:
-# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
-# End:
 
 * Contents :toc:
 - [[#about][About]]
@@ -509,3 +506,7 @@ main = do
         } `additionalKeysP` myKeys
 #+end_src
 
+
+# Local Variables:
+# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+# End:
