@@ -306,7 +306,7 @@ myKeys =
 
 -- [[file:README.org::*Run/kill windows][Run/kill windows:1]]
     -- Run Prompt
-        , ("M-y", spawn "appmenu")              -- appmenu is unique to instantOS. use `rofi -show drun` elsewhere
+        , ("M-y", spawn "rofi -show drun")              -- appmenu is unique to instantOS. use `rofi -show drun` elsewhere
 
     -- Useful programs to have a keybinding for launch
         , ("M-<Return>", spawn myTerminal)

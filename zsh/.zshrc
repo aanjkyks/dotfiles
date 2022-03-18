@@ -93,7 +93,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(mvn git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found common-aliases archlinux autojump instantos tmux)
+plugins=(mvn git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages command-not-found common-aliases archlinux autojump)
 
 source $ZSH/oh-my-zsh.sh
 
