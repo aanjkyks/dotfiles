@@ -3,7 +3,7 @@
 zsh and vim configs, mostly. 
 
 ## ZSH dependencies 
-```bash
+```sh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
@@ -17,6 +17,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # remember about lsd
+# libxft-bgra for xmobar emoji rendering
 ```
 ## xmonad
 thanks, dt. [dt's dotfiles][dt_link]
