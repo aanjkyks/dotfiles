@@ -3,7 +3,7 @@
 -- you can find weather location codes here: http://weather.noaa.gov/index.html
 
 Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=true,\
-                   \Noto Emoji:pixelsize=13,\
+                   \Noto Color Emoji:pixelsize=13,\
                    \Noto Sans CJK KR:weight=bold:pixelsize=13:antialias=true:hinting=true,\
                    \Noto Sans CJK JP:weight=bold:pixelsize=13:antialias=true:hinting=true,\
                    \Noto:weight=bold:pixelsize=13:antialias=true:hinting=true"
@@ -13,12 +13,12 @@ Config { font    = "xft:Ubuntu:weight=bold:pixelsize=13:antialias=true:hinting=t
                            ]
        , bgColor = "#282c34"
        , fgColor = "#ff6c6b"
-       , position = Static { xpos = 0 , ypos = 0, width = 2560, height = 30 }
+       , position = TopSize L 100 30
        , lowerOnStart = True
        , hideOnStart = False
        , allDesktops = True
        , persistent = True
-       , iconRoot = "/home/ainis/.xmonad/xpm/"  -- default: "."
+       , iconRoot = ".xmonad/xpm/"  -- default: "."
        , commands = [
                     -- Time and date
                       Run Date "<fn=1>\xf133 </fn> %a %b %d %Y - %H:%M " "date" 50
