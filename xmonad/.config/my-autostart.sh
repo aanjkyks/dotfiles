@@ -1,7 +1,7 @@
 #! /bin/sh
 
 lxpolkit &
-instantwallpaper random & 
+$HOME/.config/scripts/wall.sh &
 setxkbmap -layout lv,ru -option grp:alt_shift_toggle &
 nitrogen --restore &
 picom --experimental-backend &
