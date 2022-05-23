@@ -2,7 +2,7 @@
 
 lxpolkit &
 setxkbmap -layout lv,ru -option grp:alt_shift_toggle &
-nitrogen --restore &
+(~/wall.sh || nitrogen --restore) &
 compton &
 # nm-applet &
 volumeicon &

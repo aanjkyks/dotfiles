@@ -6,6 +6,8 @@ export ZSH="/home/vagrant/.oh-my-zsh"
 # exec fortune | cowsay -f $(ls /usr/share/cows | shuf -n 1) | lolcat
 export TERM="xterm-256color"
 
+source ~/path.sh
+
 [ -f "/home/vagrant/.ghcup/env" ] && source "/home/vagrant/.ghcup/env" # ghcup-env
 
 # Set name of the theme to load --- if set to "random", it will
@@ -135,7 +137,7 @@ alias egrep='egrep --color=auto'
 alias diff='diff --color=auto'
 
 alias vim='vim'
-alias dstop='docker ps | awk '{ print $1 }' | xargs docker stop'
+alias dstop="docker kill $(docker ps -q)"
 
 # Functions
 

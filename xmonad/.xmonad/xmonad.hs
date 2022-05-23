@@ -140,59 +140,59 @@ tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
-magnify  = renamed [Replace "magnify"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ magnifier
-           $ limitWindows 12
-           $ mySpacing 8
-           $ ResizableTall 1 (3/100) (1/2) []
-monocle  = renamed [Replace "monocle"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ limitWindows 20 Full
+-- magnify  = renamed [Replace "magnify"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ magnifier
+           -- $ limitWindows 12
+           -- $ mySpacing 8
+           -- $ ResizableTall 1 (3/100) (1/2) []
+-- monocle  = renamed [Replace "monocle"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ limitWindows 20 Full
 floats   = renamed [Replace "floats"]
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
            $ subLayout [] Simplest
            $ limitWindows 20 simplestFloat
-grid     = renamed [Replace "grid"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ limitWindows 12
-           $ mySpacing 8
-           $ mkToggle (single MIRROR)
-           $ Grid (16/10)
-spirals  = renamed [Replace "spirals"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ mySpacing' 8
-           $ spiral (6/7)
-threeCol = renamed [Replace "threeCol"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ limitWindows 7
-           $ mySpacing' 4
-           $ ThreeCol 1 (3/100) (1/2)
-threeRow = renamed [Replace "threeRow"]
-           $ windowNavigation
-           $ addTabs shrinkText myTabTheme
-           $ subLayout [] Simplest
-           $ limitWindows 7
-           $ mySpacing' 4
+-- grid     = renamed [Replace "grid"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ limitWindows 12
+           -- $ mySpacing 8
+           -- $ mkToggle (single MIRROR)
+           -- $ Grid (16/10)
+-- spirals  = renamed [Replace "spirals"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ mySpacing' 8
+           -- $ spiral (6/7)
+-- threeCol = renamed [Replace "threeCol"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ limitWindows 7
+           -- $ mySpacing' 4
+           -- $ ThreeCol 1 (3/100) (1/2)
+-- threeRow = renamed [Replace "threeRow"]
+           -- $ windowNavigation
+           -- $ addTabs shrinkText myTabTheme
+           -- $ subLayout [] Simplest
+           -- $ limitWindows 7
+           -- $ mySpacing' 4
            -- Mirror takes a layout and rotates it by 90 degrees.
            -- So we are applying Mirror to the ThreeCol layout.
-           $ Mirror
-           $ ThreeCol 1 (3/100) (1/2)
-tabs     = renamed [Replace "tabs"]
+           -- $ Mirror
+           -- $ ThreeCol 1 (3/100) (1/2)
+-- tabs     = renamed [Replace "tabs"]
            -- I cannot add spacing to this layout because it will
            -- add spacing between window and tabs which looks bad.
-           $ tabbed shrinkText myTabTheme
+           -- $ tabbed shrinkText myTabTheme
 
 myTabTheme = def { fontName            = myFont
                  , activeColor         = "#46d9ff"
@@ -209,14 +209,14 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
              where
                -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
-                                 ||| magnify
-                                 ||| noBorders monocle
-                                 ||| floats
-                                 ||| noBorders tabs
-                                 ||| grid
-                                 ||| spirals
-                                 ||| threeCol
-                                 ||| threeRow
+                                 -- ||| magnify
+                                 -- ||| noBorders monocle
+                                 -- ||| floats
+                                 -- ||| noBorders tabs
+                                 -- ||| grid
+                                 -- ||| spirals
+                                 -- ||| threeCol
+                                 -- ||| threeRow
 
 myWorkspaces = myClickableWorkspaces
 -- myWorkspaces = [" www ", " dev ", " 3 ", " 4 ", " 5 ", " 6 ", " game ", " g-lnch ", " social "]

@@ -35,6 +35,7 @@ map <C-n> ::NERDTreeToggle<CR>
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+imap ;; <Esc>A;
 
 set t_Co=256
 colorscheme gruvbox
