@@ -1,5 +1,6 @@
 #! /bin/sh
 
+numlockx &
 lxpolkit &
 $HOME/.config/scripts/wall.sh &
 setxkbmap -layout lv,ru -option grp:alt_shift_toggle &

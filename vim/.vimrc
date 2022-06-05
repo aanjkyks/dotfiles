@@ -22,6 +22,7 @@ set tabstop=4
 set number
 set expandtab
 set mouse=a
+set clipboard=unnamed
 syntax on
 
 set hlsearch
