@@ -23,7 +23,7 @@ import qualified Data.Map as M
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.FadeInactive
-import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
@@ -239,7 +239,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
                                  ||| mTall
-                                 ||| magnify
+                                 ||| Main.magnify
                                  ||| noBorders monocle
                                  ||| floats
                                  ||| noBorders tabs
@@ -409,7 +409,7 @@ main = do
     -- Launching xmobar
     xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc2"
     -- the xmonad, ya know...what the WM is named after!
-    xmonad $ withUrgencyHook NoUrgencyHook $ ewmh def
+    xmonad $ withUrgencyHook NoUrgencyHook . docks $ ewmh def
         { manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks
         -- Run xmonad commands from command line with "xmonadctl command". Commands include:
         -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
@@ -419,7 +419,7 @@ main = do
         , handleEventHook    = serverModeEventHookCmd
                                <+> serverModeEventHook
                                <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
-                               <+> docksEventHook
+                               -- <+> docks
         , modMask            = myModMask
         , terminal           = myTerminal
         , startupHook        = myStartupHook
